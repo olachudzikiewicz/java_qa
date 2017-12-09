@@ -1,4 +1,6 @@
-public class ZadanieNr1 {
+package ru.stqa.pft.sandbox;
+
+public class ZadaniaQa {
 	
 	public static void main (String[] args ){
 
