@@ -37,7 +37,7 @@ public class ApplicationManager {
   public void stop() {
     wd.quit();
   }
-  
+
   public GroupHelper getGroupHelper() {
     return groupHelper;
   }

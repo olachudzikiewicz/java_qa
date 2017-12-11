@@ -3,11 +3,10 @@ package ru.stqa.pft.addressbook1.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class NavigationHelper {
-  private FirefoxDriver wd;
+public class NavigationHelper extends BaseHelper {
 
   public NavigationHelper(FirefoxDriver wd) {
-    this.wd=wd;
+    super(wd);
   }
 
   public void gotoGroupPage() {
@@ -15,15 +14,12 @@ public class NavigationHelper {
   }
 
   public void goToContact() {
-    wd.findElement(By.linkText("add new")).click();
+    click(By.linkText("add new"));
   }
 
   public void login(String password, String username) {
-    wd.findElement(By.name("user")).click();
-    wd.findElement(By.name("user")).clear();
-    wd.findElement(By.name("user")).sendKeys(username);
-    wd.findElement(By.name("pass")).clear();
-    wd.findElement(By.name("pass")).sendKeys(password);
-    wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
+    type(By.name("user"),username);
+    type(By.name("pass"),password);
+    click(By.xpath("//form[@id='LoginForm']/input[3]"));
   }
 }
