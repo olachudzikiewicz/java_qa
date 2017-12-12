@@ -22,4 +22,8 @@ public class NavigationHelper extends BaseHelper {
     type(By.name("pass"),password);
     click(By.xpath("//form[@id='LoginForm']/input[3]"));
   }
+
+  public void goToHome() {
+    click(By.linkText("home"));
+  }
 }

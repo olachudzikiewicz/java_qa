@@ -25,4 +25,20 @@ public class ContactHelper extends BaseHelper {
   public void returnToPage() {
     click(By.xpath("//div/div[4]/div/i/a[2]"));
   }
+
+  public void chooseContact() {
+    click(By.id("1"));
+  }
+
+  public void submitContactModification() {
+    click(By.name("update"));
+  }
+
+  public void chooseUpdateOption() {
+    click(By.xpath("//table[@id='maintable']/tbody/tr[3]/td[8]/a/img"));
+  }
+
+  public void returnToHomePage() {
+    click(By.linkText("home page"));
+  }
 }
