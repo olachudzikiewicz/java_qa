@@ -41,4 +41,9 @@ public class ContactHelper extends BaseHelper {
   public void returnToHomePage() {
     click(By.linkText("home page"));
   }
+
+
+  public void deleteContact() {
+    click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
+  }
 }
