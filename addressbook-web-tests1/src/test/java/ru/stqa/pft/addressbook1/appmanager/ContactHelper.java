@@ -27,8 +27,8 @@ public class ContactHelper extends BaseHelper {
     click(By.xpath("//div/div[4]/div/i/a[2]"));
   }
 
-  public void chooseContact(String id) {
-    click(By.id(id));
+  public void chooseContact() {
+    click(By.name("selected[]"));
   }
 
   public void submitContactModification() {
