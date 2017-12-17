@@ -9,7 +9,7 @@ public class ContactTest extends TestBase {
   public void testContact() {
 
     app.getNavigationHelper().goToContact();
-    app.getContactHelper().fillData(new ContactData("Imie", "Nazwisko", "222-333-444", "ola@wp.pl"));
+    app.getContactHelper().fillData(new ContactData("Imie", null, "222-333-444", "ola@wp.pl"));
     app.getContactHelper().submitContactData();
     app.getContactHelper().returnToPage();
   }
