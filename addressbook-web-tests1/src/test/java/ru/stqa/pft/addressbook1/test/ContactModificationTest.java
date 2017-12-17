@@ -8,6 +8,9 @@ public class ContactModificationTest extends TestBase {
   @Test
   public void testContactModification(){
     app.getNavigationHelper().goToHome();
+    if (! app.getContactHelper().isThereAContact()) {
+      app.getContactHelper().createContact(new ContactData("Imie", null, "222-333-444", "ola@wp.pl"));
+    }
     app.getContactHelper().chooseContact();
     app.getContactHelper().chooseUpdateOption();
     app.getContactHelper().fillData(new ContactData("Anna", "Nowak", "222-333-444", "ola@wp.pl"));

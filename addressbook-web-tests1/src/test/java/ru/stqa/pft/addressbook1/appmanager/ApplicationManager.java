@@ -3,7 +3,6 @@ package ru.stqa.pft.addressbook1.appmanager;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -38,13 +37,11 @@ public class ApplicationManager {
     if (Objects.equals(browser, BrowserType.FIREFOX)) {
       wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true));
     } else if (Objects.equals(browser, BrowserType.CHROME)) {
-     // wd = new ChromeDriver();
       wd = new ChromeDriver();
     } else if (Objects.equals(browser, BrowserType.IE)){
       wd = new InternetExplorerDriver();
     }
-    wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true));
-    wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+    wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
     wd.get("http://localhost/addressbook/addressbook/edit.php");
     groupHelper = new GroupHelper(wd);
     navigationHelper = new NavigationHelper(wd);
