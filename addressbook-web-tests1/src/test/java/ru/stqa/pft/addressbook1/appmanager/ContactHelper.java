@@ -28,8 +28,8 @@ public class ContactHelper extends BaseHelper {
     click(By.xpath("//div/div[4]/div/i/a[2]"));
   }
 
-  public void chooseContact() {
-    click(By.name("selected[]"));
+  public void chooseContact(int index) {
+    wd.findElements(By.name("selected[]")).get(index).click();
   }
 
   public void submitContactModification() {
@@ -59,5 +59,9 @@ public class ContactHelper extends BaseHelper {
     fillData(contact);
     submitContactData();
     returnToPage();
+  }
+
+  public int getContactCount() {
+    return wd.findElements(By.name("selected[]")).size();
   }
 }
