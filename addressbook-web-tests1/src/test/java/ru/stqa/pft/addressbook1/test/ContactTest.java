@@ -23,12 +23,6 @@ public class ContactTest extends TestBase {
 
     Assert.assertEquals(after.size(), before.size() + 1);
 
-    int max = 0;
-    for (ContactData c:after) {
-      if (c.getId()>max){
-        max = c.getId();
-      }
-    }
     before.add(group);
     Comparator<? super ContactData> byId = (g1 , g2) -> Integer.compare(g1.getId(), g2.getId());
     before.sort(byId);
