@@ -4,19 +4,33 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook1.model.ContactData;
 
+import java.util.HashSet;
+import java.util.List;
+
 public class ContactTest extends TestBase {
 
   @Test
   public void testContact() {
     app.getNavigationHelper().goToHome();
-    int before = app.getContactHelper().getContactCount();
+    List<ContactData> before = app.getContactHelper().getContactList();
     app.getNavigationHelper().goToContact();
-    app.getContactHelper().fillData(new ContactData("Imie", null, "222-333-444", "ola@wp.pl"));
+    ContactData group = new ContactData("Imie", "Nowak", "222-333-444", "ola@wp.pl");
+    app.getContactHelper().fillData(group);
     app.getContactHelper().submitContactData();
     app.getContactHelper().returnToPage();
-    int after = app.getContactHelper().getContactCount();
+    List<ContactData> after = app.getContactHelper().getContactList();
 
-    Assert.assertEquals(after, before+1);
+    Assert.assertEquals(after.size(), before.size() + 1);
+
+    int max = 0;
+    for (ContactData c:after) {
+      if (c.getId()>max){
+        max = c.getId();
+      }
+    }
+    group.setId(max);
+    before.add(group);
+    Assert.assertEquals(new HashSet<Object>(before),new HashSet<Object>(after));
   }
 
 }

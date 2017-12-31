@@ -2,9 +2,12 @@ package ru.stqa.pft.addressbook1.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.BrowserType;
+import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook1.model.ContactData;
+
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends BaseHelper {
 
@@ -36,9 +39,10 @@ public class ContactHelper extends BaseHelper {
     click(By.name("update"));
   }
 
-  public void chooseUpdateOption() {
-   // click(By.xpath("//table[@id='maintable']/tbody/tr[3]/td[8]/a/img"));
-    click(By.xpath("//*[@title='Edit']"));
+  public void chooseUpdateOption(int index) {
+   // click(By.xpath("//table[@id='maintable']/tbody/tr["+liczba+"]/td[8]/a/img"));
+   // click(By.xpath("//*[@title='Edit']"));
+   click(By.xpath("//*[@href='edit.php?id="+index+"']" ));
   }
 
   public void returnToHomePage() {
@@ -63,5 +67,19 @@ public class ContactHelper extends BaseHelper {
 
   public int getContactCount() {
     return wd.findElements(By.name("selected[]")).size();
+  }
+
+  public List<ContactData> getContactList() {
+    List<ContactData> contact = new ArrayList<ContactData>();
+    List<WebElement> elements = wd.findElements(By.name("entry"));
+      for (WebElement element : elements) {
+        String name = element.findElement(By.cssSelector("td:nth-child(3)")).getText();
+        String surname = element.findElement(By.cssSelector("td:nth-child(2)")).getText();
+        int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+        ContactData group = new ContactData(id,name, surname, null,null);
+        contact.add(group);
+    }
+
+    return contact;
   }
 }
