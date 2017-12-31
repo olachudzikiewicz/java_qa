@@ -8,7 +8,7 @@ public class GroupData1 {
   private final String footer;
 
   public GroupData1(String name, String header, String footer) {
-    this.id = 0;
+    this.id = Integer.MAX_VALUE;
     this.name = name;
     this.header = header;
     this.footer = footer;
@@ -56,16 +56,11 @@ public class GroupData1 {
 
     GroupData1 that = (GroupData1) o;
 
-    if (id != that.id) return false;
     return name != null ? name.equals(that.name) : that.name == null;
   }
 
   @Override
   public int hashCode() {
-    int result = id;
-    result = 31 * result + (name != null ? name.hashCode() : 0);
-    return result;
+    return name != null ? name.hashCode() : 0;
   }
-
-
 }
