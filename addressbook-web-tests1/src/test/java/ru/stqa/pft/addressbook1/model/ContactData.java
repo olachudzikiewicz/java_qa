@@ -2,26 +2,35 @@ package ru.stqa.pft.addressbook1.model;
 
 public class ContactData {
 
-  private  int  id;
-  private final String name;
-  private final String surname;
-  private final String phoneNumber;
-  private final String email;
+  private  int  id = Integer.MAX_VALUE;;
+  private  String name;
+  private  String surname;
+  private  String phoneNumber;
+  private  String email;
 
-  public ContactData(String name, String surname, String phoneNumber, String email) {
-    this.id = Integer.MAX_VALUE;
+    public ContactData withName(String name) {
     this.name = name;
-    this.surname = surname;
-    this.phoneNumber = phoneNumber;
-    this.email = email;
+    return this;
   }
 
-  public ContactData(int id,String name, String surname, String phoneNumber, String email) {
-    this.id = id;
-    this.name = name;
+  public ContactData withSurname(String surname) {
     this.surname = surname;
+    return this;
+  }
+
+  public ContactData withPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
+    return this;
+  }
+
+  public ContactData withEmail(String email) {
     this.email = email;
+    return this;
+  }
+
+  public ContactData withId(int id) {
+    this.id = id;
+    return this;
   }
 
   public String getName() {
@@ -44,27 +53,6 @@ public class ContactData {
     return id;
   }
 
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-
-    ContactData that = (ContactData) o;
-
-    if (name != null ? !name.equals(that.name) : that.name != null) return false;
-    return surname != null ? surname.equals(that.surname) : that.surname == null;
-  }
-
-  @Override
-  public int hashCode() {
-    int result = name != null ? name.hashCode() : 0;
-    result = 31 * result + (surname != null ? surname.hashCode() : 0);
-    return result;
-  }
 
   @Override
   public String toString() {
@@ -75,4 +63,23 @@ public class ContactData {
             '}';
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    ContactData that = (ContactData) o;
+
+    if (id != that.id) return false;
+    if (name != null ? !name.equals(that.name) : that.name != null) return false;
+    return surname != null ? surname.equals(that.surname) : that.surname == null;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = id;
+    result = 31 * result + (name != null ? name.hashCode() : 0);
+    result = 31 * result + (surname != null ? surname.hashCode() : 0);
+    return result;
+  }
 }
