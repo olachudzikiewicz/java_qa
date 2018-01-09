@@ -115,12 +115,40 @@ public class ContactHelper extends BaseHelper {
     for (WebElement element : elements) {
       String name = element.findElement(By.cssSelector("td:nth-child(3)")).getText();
       String surname = element.findElement(By.cssSelector("td:nth-child(2)")).getText();
+      String allPhones = element.findElement(By.cssSelector("td:nth-child(6)")).getText();
+      String[] phones = allPhones.split("\n");
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      contact.add(new ContactData().withId(id).withName(name).withSurname(surname));
+      contact.add(new ContactData().withId(id).withName(name).withSurname(surname).withHomePhone(phones[0])
+              .withMobilePhone(phones[1]).withWorkPhone(phones[2]));
     }
 
     return contact;
   }
 
 
+  public ContactData infoFromEditForm(ContactData contact) {
+    initContactModificationById(contact.getId());
+    String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+    String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+    String home = wd.findElement(By.name("home")).getAttribute("value");
+    String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+    String work = wd.findElement(By.name("work")).getAttribute("value");
+    wd.navigate().back();
+    return new ContactData().withId(contact.getId()).withName(firstname).withSurname(lastname).withHomePhone(home)
+            .withMobilePhone(mobile).withWorkPhone(work);
+  }
+
+  //to samo realizuje co chooseContactById
+  private void initContactModificationById (int id) {
+    WebElement checkbox = wd.findElement(By.cssSelector(String.format("input[value='%s'",id )));
+    WebElement row = checkbox.findElement(By.xpath("./../..")); //robimy dwa przejścia w górę od bieżącego elementu
+    List<WebElement> cells = row.findElements(By.tagName("td")); //znajdujemy wszystkie kolumny
+    cells.get(7).findElement(By.tagName("a")).click(); //wybieramy 8 kolumnę (numeracja od 0) żeby wybrać ołówek
+    // (funkcja modyfikacji)
+
+    //alternatywne rozwiazania (zamiast tych 4 linijek):
+  //  wd.findElement(By.xpath(String.format("//input[@value='%s']/../../td[8]/a", id))).click();
+   // wd.findElement(By.xpath(String.format("//tr[.//input[@value='%s']]/td[8]/a", id))).click();
+   // wd.findElement(By.cssSelector(String.format("a[href='edit.php?id='%s']", id))).click();
+  }
 }
