@@ -14,8 +14,10 @@ public class ContactTest extends TestBase {
     app.getNavigationHelper().goToHome();
     Contact before = app.getContactHelper().allContact();
     app.getNavigationHelper().goToContact();
-    ContactData group = new ContactData().withName("Imie").withSurname("Nowak").withPhoneNumber("222-333-444")
-            .withEmail("ola@wp.pl");
+    ContactData group = new ContactData().withName("Test").withSurname("Adres").withHomePhone("222-333-444")
+            .withMobilePhone("333").withWorkPhone("444")
+            .withEmail("ola@wp.pl").withEmail1("uuu@wp.pl").withEmail2("rrr@wp.pl").withAddress("ul. Kościuszki 23 " +
+                    "Katowice");
     app.getContactHelper().fillData(group);
     app.getContactHelper().submitContactData();
     app.getContactHelper().returnToPage();

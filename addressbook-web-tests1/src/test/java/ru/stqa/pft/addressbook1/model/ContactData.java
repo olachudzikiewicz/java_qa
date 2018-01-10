@@ -7,10 +7,26 @@ public class ContactData {
   private  String surname;
   private  String phoneNumber;
   private  String email;
+  private  String email1;
+  private  String email2;
   private  String group;
   private  String homePhone;
   private  String mobilePhone;
   private  String workPhone;
+  private  String address;
+
+
+
+  public ContactData withEmail1(String email1) {
+    this.email1 = email1;
+    return this;
+  }
+
+
+  public ContactData withEmail2(String email2) {
+    this.email2 = email2;
+    return this;
+  }
 
   public ContactData withName(String name) {
     this.name = name;
@@ -57,6 +73,12 @@ public class ContactData {
     return this;
   }
 
+
+  public ContactData withAddress(String address) {
+    this.address = address;
+    return this;
+  }
+
   public String getName() {
     return name;
   }
@@ -91,6 +113,18 @@ public class ContactData {
 
   public String getWorkPhone() {
     return workPhone;
+  }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public String getEmail1() {
+    return email1;
+  }
+
+  public String getEmail2() {
+    return email2;
   }
 
   @Override
