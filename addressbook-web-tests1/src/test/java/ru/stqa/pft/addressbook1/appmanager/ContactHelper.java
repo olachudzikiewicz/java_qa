@@ -122,14 +122,13 @@ public class ContactHelper extends BaseHelper {
       String name = element.findElement(By.cssSelector("td:nth-child(3)")).getText();
       String surname = element.findElement(By.cssSelector("td:nth-child(2)")).getText();
       String allPhones = element.findElement(By.cssSelector("td:nth-child(6)")).getText();
-      String[] phones = allPhones.split("\n");
+     // String[] phones = allPhones.split("\n");
       String address = element.findElement(By.cssSelector("td:nth-child(4)")).getText();
       String allEmail = element.findElement(By.cssSelector("td:nth-child(5)")).getText();
-      String[] email = allEmail.split("\n");
+     // String[] email = allEmail.split("\n");
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      contact.add(new ContactData().withId(id).withName(name).withSurname(surname).withHomePhone(phones[0])
-              .withMobilePhone(phones[1]).withWorkPhone(phones[2]).withAddress(address).withEmail(email[0])
-              .withEmail1(email[1]).withEmail2(email[2]));
+      contact.add(new ContactData().withId(id).withName(name).withSurname(surname).withAllPhones(allPhones)
+              .withAllEmail(allEmail).withAddress(address));
     }
 
     return contact;
