@@ -165,4 +165,11 @@ public class ContactHelper extends BaseHelper {
    // wd.findElement(By.xpath(String.format("//tr[.//input[@value='%s']]/td[8]/a", id))).click();
    // wd.findElement(By.cssSelector(String.format("a[href='edit.php?id='%s']", id))).click();
   }
+
+  public String infoFromVcard(ContactData contact) {
+    int id = contact.getId();
+    wd.findElement(By.xpath(String.format("//input[@value='%s']/../../td[7]/a", id))).click();
+    String tekst = wd.findElement(By.xpath("//div[@id='content']")).getText();
+            return tekst;
+  }
 }
