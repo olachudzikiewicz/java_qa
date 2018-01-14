@@ -1,0 +1,26 @@
+<list>
+  <contact>
+    <name>Imie 0</name>
+    <surname>Nazwisko 0</surname>
+    <email>email0@onet.eu</email>
+    <homePhone>444-440-0-22</homePhone>
+  </contact>
+  <contact>
+    <name>Imie 1</name>
+    <surname>Nazwisko 1</surname>
+    <email>email1@onet.eu</email>
+    <homePhone>444-441-1-22</homePhone>
+  </contact>
+  <contact>
+    <name>Imie 2</name>
+    <surname>Nazwisko 2</surname>
+    <email>email2@onet.eu</email>
+    <homePhone>444-442-2-22</homePhone>
+  </contact>
+  <contact>
+    <name>Imie 3</name>
+    <surname>Nazwisko 3</surname>
+    <email>email3@onet.eu</email>
+    <homePhone>444-443-3-22</homePhone>
+  </contact>
+</list>
