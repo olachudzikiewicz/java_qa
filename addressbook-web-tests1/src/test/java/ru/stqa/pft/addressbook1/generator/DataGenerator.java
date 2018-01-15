@@ -53,6 +53,7 @@ public class DataGenerator {
 
   private List<ContactData> generateContact(int count) {
     List<ContactData> contact = new ArrayList<ContactData>();
+    File photo = new File("src/test/resources/test1.png");
     for (int i=0; i<count; i++) {
       contact.add(new ContactData().withName(String.format("Imie %s",i)).withSurname(String.format("Nazwisko %s",i))
               .withHomePhone((String.format("444-44%s-%s-22",i,i))).withEmail(String.format("email%s@onet.eu",i)));
