@@ -38,9 +38,9 @@ public class GroupTest1 extends TestBase {
   @Test (dataProvider = "validGroupsFromXml")
   public void testGroup(GroupData1 group) {
     app.getNavigationHelper().gotoGroupPage();
-    Groups before = app.getGroupHelper().all();
+    Groups before = app.db().groups();
     app.getGroupHelper().createGroup(group);
-   Groups after = app.getGroupHelper().all();
+    Groups after = app.db().groups();
 
     assertThat(after.size(), equalTo(before.size() + 1));
 
