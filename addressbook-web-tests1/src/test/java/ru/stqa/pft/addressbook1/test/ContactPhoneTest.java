@@ -15,8 +15,8 @@ public class ContactPhoneTest extends TestBase {
   @BeforeMethod
   public void ensurePreconditions() {
     app.getNavigationHelper().goToHome();
-    if (! app.getContactHelper().isThereAContact()) {
-      app.getContactHelper().createContact(new ContactData().withName("imie").withSurname(null).withPhoneNumber
+    if (app.db().contacts().size() == 0) {
+      app.getContactHelper().createContact(new ContactData().withName("Baza").withSurname("Danych").withPhoneNumber
               ("222-333-444").withEmail("ola@wp.pl"));
     }
   }

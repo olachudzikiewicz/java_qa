@@ -38,18 +38,14 @@ public class ContactTest extends TestBase {
   @Test (dataProvider = "validContactFromXml")
   public void testContact(ContactData group) {
     app.getNavigationHelper().goToHome();
-    Contact before = app.getContactHelper().allContact();
+    Contact before =app.db().contacts();
     app.getNavigationHelper().goToContact();
     File photo = new File("src/test/resources/test1.png");
-    /*ContactData group = new ContactData().withName("Test").withSurname("Plik").withHomePhone("222-333-444")
-            .withMobilePhone("333").withWorkPhone("444")
-            .withEmail("ola@wp.pl").withEmail1("uuu@wp.pl").withEmail2("rrr@wp.pl").withAddress("ul. Kościuszki 23 " +
-                    "Katowice").withPhoto(photo); */
     group.withPhoto(photo);
     app.getContactHelper().fillData(group);
     app.getContactHelper().submitContactData();
     app.getContactHelper().returnToPage();
-    Contact after = app.getContactHelper().allContact();
+    Contact after =app.db().contacts();
     assertThat(after.size(), equalTo(before.size() + 1));
 
     group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt());

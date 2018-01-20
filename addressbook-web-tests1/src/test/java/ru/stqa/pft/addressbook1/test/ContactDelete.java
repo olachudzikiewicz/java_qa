@@ -16,18 +16,19 @@ public class ContactDelete extends TestBase {
   @BeforeMethod
   public void ensurePreconditions() {
     app.getNavigationHelper().goToHome();
-    if (! app.getContactHelper().isThereAContact()) {
-      app.getContactHelper().createContact(new ContactData().withName("Imie").withSurname("Nazwisko").withPhoneNumber
+    if (app.db().contacts().size() == 0) {
+      app.getContactHelper().createContact(new ContactData().withName("Baza").withSurname("Danych").withPhoneNumber
               ("222-333-444").withEmail("ola@wp.pl"));
     }
   }
 
   @Test
-  public void testContactDelete(){
-    Contact before = app.getContactHelper().allContact();
+  public void testContactDelete() throws InterruptedException {
+    Contact before =app.db().contacts();
     ContactData deletedContact = before.iterator().next();
     app.getContactHelper().deleteContact(deletedContact);
-    Contact after = app.getContactHelper().allContact();
+    Thread.sleep(100);
+    Contact after =app.db().contacts();
 
     assertEquals(after.size(), before.size() - 1);
 
