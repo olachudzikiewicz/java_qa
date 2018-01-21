@@ -3,14 +3,17 @@ package ru.stqa.pft.addressbook1.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.stqa.pft.addressbook1.model.Contact;
 import ru.stqa.pft.addressbook1.model.ContactData;
 
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class ContactHelper extends BaseHelper {
 
@@ -173,4 +176,9 @@ public class ContactHelper extends BaseHelper {
     String tekst = wd.findElement(By.xpath("//div[@id='content']")).getText();
             return tekst;
   }
+
+  public void CheckIfDeleted() {
+    WebDriverWait wait = new WebDriverWait(wd, 10);
+    wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("searchstring")));
+    }
 }
