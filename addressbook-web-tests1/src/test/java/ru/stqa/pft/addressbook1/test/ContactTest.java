@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook1.model.Contact;
 import ru.stqa.pft.addressbook1.model.ContactData;
 import ru.stqa.pft.addressbook1.model.GroupData1;
+import ru.stqa.pft.addressbook1.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -37,12 +38,13 @@ public class ContactTest extends TestBase {
 
   @Test (dataProvider = "validContactFromXml")
   public void testContact(ContactData group) {
+    Groups allGroups = app.db().groups();
     app.getNavigationHelper().goToHome();
     Contact before =app.db().contacts();
     app.getNavigationHelper().goToContact();
     File photo = new File("src/test/resources/test1.png");
     group.withPhoto(photo);
-    app.getContactHelper().fillData(group);
+    app.getContactHelper().fillData(group, true);
     app.getContactHelper().submitContactData();
     app.getContactHelper().returnToPage();
     Contact after =app.db().contacts();

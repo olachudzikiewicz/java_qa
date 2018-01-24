@@ -1,19 +1,23 @@
 package ru.stqa.pft.addressbook1.appmanager;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import ru.stqa.pft.addressbook1.model.Contact;
 import ru.stqa.pft.addressbook1.model.ContactData;
+import ru.stqa.pft.addressbook1.model.GroupData1;
+import ru.stqa.pft.addressbook1.model.Groups;
 
 
+import java.io.File;
+import java.security.acl.Group;
 import java.util.*;
-
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class ContactHelper extends BaseHelper {
 
@@ -26,7 +30,7 @@ public class ContactHelper extends BaseHelper {
     click(By.xpath("//div[@id='content']/form/input[21]"));
   }
 
-  public void fillData(ContactData contactData) {
+  public void fillData(ContactData contactData,boolean creation) {
     type(By.name("firstname"),contactData.getName());
     type(By.name("lastname"),contactData.getSurname());
    // type(By.name("home"),contactData.getPhoneNumber());
@@ -38,6 +42,16 @@ public class ContactHelper extends BaseHelper {
     type(By.name("mobile"),contactData.getMobilePhone());
     type(By.name("work"),contactData.getWorkPhone());
     attach(By.name("photo"),contactData.getPhoto());
+    if (creation) {
+      if (contactData.getGroups().size()>0) {
+        Assert.assertTrue(contactData.getGroups().size() ==1);
+      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next()
+              .getName());
+      }
+      else {
+        Assert.assertFalse(isElementPresent(By.name("new_group")));
+      }
+    }
   }
 
   public void returnToPage() {
@@ -77,7 +91,7 @@ public class ContactHelper extends BaseHelper {
 
   public void createContact( ContactData contact) {
     click(By.linkText("add new"));
-    fillData(contact);
+    fillData(contact,true);
     submitContactData();
     returnToPage();
   }
@@ -97,9 +111,54 @@ public class ContactHelper extends BaseHelper {
   public void modifyContact(ContactData group) {
     chooseContactById(group.getId());
     chooseUpdateOption(group.getId());
-    fillData(group);
+    fillData(group,true);
     submitContactModification();
     returnToHomePage();
+  }
+
+  public void addContactToGroup(ContactData choosedContact,Groups groupList) {
+    chooseContactById(choosedContact.getId());
+    click(By.name("to_group"));
+    chooseGroup(groupList);
+    clickAddContacttoGroup();
+    returnToGroupContactPage();
+
+  }
+
+  public void deleteContactFromGroup(Groups groupList) {
+    clickFilterGroup();
+    GroupData1 chooseGroup = groupList.iterator().next();
+    new Select(wd.findElement(By.name("group"))).selectByVisibleText(chooseGroup.getName());
+    Contact contactInGroup = allContact();
+    if (contactInGroup.size() == 0) {
+      File photo = new File("src/test/resources/test1.png");
+      createContact(new ContactData().withName("Baza").withSurname("Danych").withMobilePhone
+              ("222-333-444").withEmail("ola@wp.pl").withPhoto(photo).inGroups(chooseGroup));
+      new Select(wd.findElement(By.name("group"))).selectByVisibleText(chooseGroup.getName());
+    }
+    chooseContactById(allContact().iterator().next().getId());
+    clickRemove();
+    returnToHomePage();
+  }
+
+  private void clickRemove() {
+    click(By.name("remove"));
+  }
+
+  private void clickFilterGroup() {
+    click(By.name("group"));
+  }
+
+  private void chooseGroup(Groups groupList) {
+    new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(groupList.iterator().next().getName());
+  }
+
+  private void returnToGroupContactPage() {
+    click(By.xpath("//a[contains(text(),'group')]"));
+  }
+
+  private void clickAddContacttoGroup() {
+    click(By.name("add"));
   }
 
   public int getContactCount() {
@@ -181,4 +240,7 @@ public class ContactHelper extends BaseHelper {
     WebDriverWait wait = new WebDriverWait(wd, 10);
     wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("searchstring")));
     }
+
+
+
 }
