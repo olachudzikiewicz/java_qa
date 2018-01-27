@@ -1,5 +1,6 @@
 package ru.stqa.pft.mantis.appmanager;
 
+import org.apache.http.client.methods.HttpGet;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -52,8 +53,17 @@ public class ApplicationManager {
 
   }
 
+  public HttpSession newSession() {
+    return new HttpSession(this);
+  }
+
   public void stop() {
     wd.quit();
   }
+
+  public String getProperty(String key) {
+  return properties.getProperty(key);
+  }
+
 
 }
