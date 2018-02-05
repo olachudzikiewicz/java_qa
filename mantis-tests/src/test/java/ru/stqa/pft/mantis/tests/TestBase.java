@@ -1,6 +1,8 @@
 package ru.stqa.pft.mantis.tests;
 
+import biz.futureware.mantis.rpc.soap.client.MantisConnectPortType;
 import org.openqa.selenium.remote.BrowserType;
+import org.testng.SkipException;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import ru.stqa.pft.mantis.appmanager.ApplicationManager;
@@ -26,5 +28,17 @@ public class TestBase {
     app.stop();
   }
 
+  public void skipIfNotFixed(int issueId) {
+    if (isIssueOpen(issueId)) {
+      throw new SkipException("Ignored because of issue " + issueId);
+    }
   }
+
+  private boolean isIssueOpen(int issueId) {
+    MantisConnectPortType mc = getMantisConnectPortType();
+    return true;
+  }
+
+
+}
 

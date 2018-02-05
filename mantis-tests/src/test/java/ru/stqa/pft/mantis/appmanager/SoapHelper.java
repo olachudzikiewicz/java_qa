@@ -51,4 +51,6 @@ public class SoapHelper {
                     .getProject().getId().intValue()).withName(createdIssueData
                     .getProject().getName()));
   }
+
+
 }
